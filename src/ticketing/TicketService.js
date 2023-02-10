@@ -7,6 +7,7 @@ const ADULT_TICKET_PRICE = 20
 const CHILD_TICKET_PRICE = 10
 
 // Function to check if the count is a valid and acceptable number
+// any future validation additions can go here
 function isValidCount(count){
   // Returns true if count is an integer and is greater than zero
   return Number.isInteger(count) && count>0
@@ -23,27 +24,23 @@ export default class TicketService {
 
       // Check if atleast one adult ticket is booked
       if(!ticketTypeRequest.adult){
-        console.log("Please purchase atleast one valid adult ticket")
-        return
+        return "Please purchase atleast one valid adult ticket"
       }
 
       // Perform validation on request data
       if(!isValidCount(adult) || !isValidCount(child) || !isValidCount(infant)) {
-        console.log("Please enter a valid count greater than 0")
-        return
+        return "Please enter a valid count greater than 0"
       }
 
       // Number of infants should be <= number of adult tickets
       if(infant > adult){
-        console.log("Number of infants cannot be greater than number of adults")
-        return
+        return "Number of infants cannot be greater than number of adults"
       }
 
       const totalSeat = adult + child
       // Maximum seat allowed per booking is 20. Abort booking if this criteria fails.
       if(totalSeat > 20){
-        console.log("Only a maximum of 20 seats could be purchased at a time")
-        return
+        return "Only a maximum of 20 seats could be purchased at a time"
       }
 
       // Total booking cost calculation [type count * ticket type unit price]
@@ -58,7 +55,7 @@ export default class TicketService {
       seatReservationService.reserveSeat(ticketTypeRequest.accountId, totalSeat)
 
       // Show a success message with booking details
-      console.log(totalSeat + " seats have been booked succesfully and £"+totalCost + " has beed debited from your account")
+      return totalSeat + " seats have been booked succesfully and £"+totalCost + " has been debited from your account"
     }
   }
   

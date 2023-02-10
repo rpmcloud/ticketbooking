@@ -8,4 +8,5 @@ const ticketTypeRequest = {
 }
 
 var ticketService = new TicketService()
-ticketService.bookTicket(ticketTypeRequest)
+const status = ticketService.bookTicket(ticketTypeRequest)
+console.log(status)
