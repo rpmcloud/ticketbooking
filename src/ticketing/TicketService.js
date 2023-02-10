@@ -37,11 +37,15 @@ export default class TicketService {
         return "Number of infants cannot be greater than number of adults"
       }
 
-      const totalSeat = adult + child
+      // Calculate total tickets which include infants (since it is a ticket category)
+      const totalTickets = adult + child + infant
       // Maximum seat allowed per booking is 20. Abort booking if this criteria fails.
-      if(totalSeat > 20){
+      if(totalTickets > 20){
         return "Only a maximum of 20 seats could be purchased at a time"
       }
+
+      // Seats to be booked only for adult and child categories
+      const totalSeat = totalTickets - infant
 
       // Total booking cost calculation [type count * ticket type unit price]
       const totalCost = adult*ADULT_TICKET_PRICE + child*CHILD_TICKET_PRICE
